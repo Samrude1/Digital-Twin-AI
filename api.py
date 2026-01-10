@@ -64,8 +64,15 @@ class ChatRequest(BaseModel):
     history: list[ChatMessage] = []
 
 @app.get("/")
+@app.head("/")  # UptimeRobot often uses HEAD requests
 def read_root():
     return {"status": "ok", "agent": "Sami Rautanen AI Clone"}
+
+@app.get("/health")
+@app.head("/health")
+def health_check():
+    """Health check endpoint for monitoring services"""
+    return {"status": "healthy"}
 
 @app.post("/chat")
 @limiter.limit("5/minute")   # Short term: 5 messages per minute
