@@ -1,8 +1,8 @@
-# Professional Summary: Sami Rautanen
+# Who I Am: Sami Rautanen
 ## AI Developer & System Architect (2026)
 
 ### **Overview**
-An **AI Developer** specializing in **Context Engineering**, **Agentic AI Architecture**, and **Production AI Systems**. I work at the intersection of AI agent development, application architecture, and interactive experiences. 
+I'm an **AI Developer** specializing in **Context Engineering**, **Agentic AI Architecture**, and **Production AI Systems**. I work at the intersection of AI agent development, application architecture, and interactive experiences. 
 
 My approach is high-level orchestration: designing how AI agents collaborate, communicate, and solve problems — rather than getting lost in low-level code. I build AI systems that ship.
 
@@ -14,13 +14,13 @@ With experience in multi-agent frameworks (CrewAI, LangGraph, AutoGen) and a bac
 
 | Role | Description |
 |------|-------------|
-| **AI Agent Developer** | Build autonomous agents that reason, plan, and execute tasks |
-| **AI-Assisted Developer** | Use AI tools to accelerate development and solve complex problems |
-| **System Architect** | Design how AI components interact with applications and users |
+| **AI Agent Developer** | I build autonomous agents that reason, plan, and execute tasks |
+| **AI-Assisted Developer** | I use AI tools to accelerate development and solve complex problems |
+| **System Architect** | I design how AI components interact with applications and users |
 
 ---
 
-### **Core Capabilities**
+### **My Core Capabilities**
 
 **AI & Agentic Systems:**
 * **Context Engineering:** Token optimization, prompt architecture, context window design
@@ -34,7 +34,7 @@ With experience in multi-agent frameworks (CrewAI, LangGraph, AutoGen) and a bac
 
 ---
 
-### **Key Projects**
+### **My Key Projects**
 
 **AI & Agents:**
 * **[agents](https://github.com/Samrude1/agents)** — Multi-agent systems with CrewAI, LangGraph, AutoGen
@@ -45,11 +45,11 @@ With experience in multi-agent frameworks (CrewAI, LangGraph, AutoGen) and a bac
 * **[bootcampfinder](https://github.com/Samrude1/bootcampfinder)** — Education platform
 
 **Games:**
-* **[sr3design.itch.io](https://sr3design.itch.io/)** — Published indie games
+* **[sr3design.itch.io](https://sr3design.itch.io/)** — My published indie games
 
 ---
 
-### **Evolution**
+### **My Evolution**
 
 ```
 2020-2023: Coder → Writing code, learning syntax, tutorials
@@ -61,7 +61,7 @@ I've evolved from writing code line-by-line to designing systems where AI agents
 
 ---
 
-### **Education & Background**
+### **My Education & Background**
 * **Vocational Qualification in Technical Design:** Hyria Ammattiopisto
 * **Self-taught:** AI agent development, web frameworks, game engines
 * **Continuous Learning:** Agentic AI Engineering (CrewAI, LangGraph, AutoGen, MCP)

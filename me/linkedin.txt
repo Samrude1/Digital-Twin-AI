@@ -1,4 +1,4 @@
-# LinkedIn Profile Update Draft
+# My LinkedIn Profile
 
 ## 1. Headline
 **AI Developer | Agentic Systems & Technical Design | Building Intelligent Multi-Agent Architectures & Real-Time 3D Systems**
@@ -7,73 +7,60 @@
 
 ## 2. About (Summary)
 
-I am an **AI Developer** and **Technical Designer** who bridges the gap between creative vision and technical implementation.
+I'm an **AI Developer** and **Technical Designer** who bridges the gap between creative vision and technical implementation.
 
 My journey began in structural design, giving me a disciplined foundation in systems thinking and visualization. Today, I apply that architectural mindset to software. I don't just write code—I **orchestrate intelligent systems**.
 
 I specialize in **Agentic AI**, designing multi-agent architectures (using frameworks like CrewAI, LangGraph, and AutoGen) that solve complex problems autonomously. I also bring deep expertise in **Game Engines** (Unity/Unreal), combining logic with high-fidelity visualization.
 
-**Core Focus Areas:**
-*   **🤖 AI Agent Development:** Building autonomous agents that interact with tools and APIs.
-*   **🧠 Context Engineering:** Architecting how systems efficiently process and retain information.
-*   **🎮 Game Engine Expertise:** Developing complex interactive systems and mechanics in Unity & Unreal Engine.
-*   **🚀 Full-Stack Production:** Shipping robust applications with Next.js, Python, and TypeScript.
+**My Core Focus Areas:**
+*   **🤖 AI Agent Development:** Building autonomous agents that interact with tools and APIs
+*   **🧠 Context Engineering:** Architecting how systems efficiently process and retain information
+*   **🎮 Game Engine Expertise:** Developing complex interactive systems and mechanics in Unity & Unreal Engine
+*   **🚀 Full-Stack Production:** Shipping robust applications with Next.js, Python, and TypeScript
 
-I am currently open to roles in **Technical Architecture**, **AI Integration**, and **Full-Stack Development** where I can apply forward-thinking AI strategies to solve real-world problems.
+I'm currently open to roles in **Technical Architecture**, **AI Integration**, and **Full-Stack Development** where I can apply forward-thinking AI strategies to solve real-world problems.
 
 ---
 
-## 3. Experience / Project Highlights (Featured Section)
-
-*(Add these to your "Featured" or "Experience" section)*
+## 3. My Experience / Project Highlights
 
 **AI-Integrated Chess Engine**
-*   Built a custom chess engine integrating Stockfish with a **Gemini-powered AI commentator**.
-*   Engineered a dynamic personality system where the AI adapts its commentary style based on game state.
-*   *Tech:* Python, Stockfish API, Gemini LLM.
+*   I built a custom chess engine integrating Stockfish with a **Gemini-powered AI commentator**
+*   I engineered a dynamic personality system where the AI adapts its commentary style based on game state
+*   *Tech:* Python, Stockfish API, Gemini LLM
 
 **Autonomous Agent Systems (Research & Dev)**
-*   Developed a suite of autonomous agents capable of web searching, data synthesis, and workflow automation.
-*   Implemented using **CrewAI** and **LangGraph** to explore multi-agent collaboration patterns.
-*   *Tech:* Python, LLMs, Agentic Frameworks.
+*   I developed a suite of autonomous agents capable of web searching, data synthesis, and workflow automation
+*   I implemented using **CrewAI** and **LangGraph** to explore multi-agent collaboration patterns
+*   *Tech:* Python, LLMs, Agentic Frameworks
 
 **ActivityFinder (Full-Stack App)**
-*   Designed and deployed a location-based social discovery platform.
-*   Features interactive maps, real-time filtering, and a clean, responsive UI.
-*   *Tech:* Next.js, Tailwind CSS, Leaflet Maps.
+*   I designed and deployed a location-based social discovery platform
+*   Features interactive maps, real-time filtering, and a clean, responsive UI
+*   *Tech:* Next.js, Tailwind CSS, Leaflet Maps
 
 ---
 
-## 4. Skills
+## 4. My Skills
 
-**Top Skills (Pin these):**
+**Top Skills:**
 1.  **Agentic AI** (CrewAI, LangGraph, AutoGen)
 2.  **Unity & Unreal Engine**
 3.  **Artificial Intelligence (AI)**
 4.  **Technical Design**
 5.  **Full-Stack Development**
 
-**Technical Stack:**
+**My Technical Stack:**
 *   **AI/ML:** Python, OpenAI API, Anthropic Claude, Gemini, Vector Databases
 *   **Game Dev:** Unity (C#), Unreal Engine (Blueprints/C++), Technical Design
 *   **Web:** React, Next.js, TypeScript, Tailwind CSS
 
 ---
 
-## 5. Education
+## 5. My Education
 
 **Hyria Ammattiopisto**
 *   **Vocational Qualification in Technical Design (Tekninen suunnittelija)**
 *   *Focus:* 3D Visualization, CAD, Structural Design & Engineering
-*   *Relevance:* Provided the foundation for my structural visualization and "technical design" approach to software architecture.
-
----
-
-## 6. Profile Photo Strategy
-**Target Vibe:** "The Technical Creative"
-*   **Goal:** Signal that you built the Game/AI systems, not just played them.
-*   **Attire:**
-    *   *Option A (The Pivot):* High-quality **crewneck sweater** or **textured t-shirt** (Dark Grey, Navy, or Black). Fits the "Architect" persona perfectly.
-    *   *Option B (The Authentic):* A **premium solid-color hoodie** (no logos, clean structure). If you wear a hoodie, ensure the lighting is studio-quality to keep it professional.
-*   **Lighting:** Soft side lighting (window light). Avoid dark/grainy webcams.
-*   **Method:** Use **Secta.ai** or **Aragon.ai** to generate professional results from your existing photos. Select the "Casual" or "Tech" packs.
+*   *Relevance:* Provided the foundation for my structural visualization and "technical design" approach to software architecture
