@@ -69,6 +69,7 @@ I've evolved from writing code line-by-line to designing systems where AI agents
 ---
 
 ### **Contact & Links**
+* **Email:** samrude1@outlook.com
 * **GitHub:** [github.com/Samrude1](https://github.com/Samrude1)
 * **LinkedIn:** [linkedin.com/in/sami-rautanen-022095325](https://www.linkedin.com/in/sami-rautanen-022095325)
 * **Itch.io:** [sr3design.itch.io](https://sr3design.itch.io/)
