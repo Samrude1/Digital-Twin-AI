@@ -61,6 +61,11 @@ I've evolved from writing code line-by-line to designing systems where AI agents
 
 ---
 
+### **About Me**
+I'm based in Finland and available for remote projects worldwide. When I'm not building AI agents or architecting systems, I create indie games and 3D art—you can check out my game projects on itch.io and my 3D work on ArtStation. I'm passionate about the intersection of AI and interactive experiences, which is why I combine my background in technical design with modern AI development.
+
+---
+
 ### **My Education & Background**
 * **Vocational Qualification in Technical Design:** Hyria Ammattiopisto
 * **Self-taught:** AI agent development, web frameworks, game engines
