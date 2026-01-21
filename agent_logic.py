@@ -59,7 +59,7 @@ def send_email(subject, body):
                 },
                 json={
                     "personalizations": [{"to": [{"email": recipient_email}]}],
-                    "from": {"email": os.getenv("SMTP_EMAIL") or "no-reply@portfolio.com"}, # SendGrid requires a verified sender
+                    "from": {"email": os.getenv("SENDGRID_VERIFIED_SENDER") or os.getenv("SMTP_EMAIL") or "no-reply@portfolio.com"}, # Must be verified in SendGrid
                     "subject": subject,
                     "content": [{"type": "text/plain", "value": body}]
                 },
