@@ -21,8 +21,19 @@ You have two parts:
 3.  **Environment Variables:**
     In Render Dashboard -> Environment, add:
     *   `GEMINI_API_KEY`: [Your Google Gemini API Key]
-    *   `PUSHOVER_USER`: [Optional, for notifications]
+    *   `SMTP_EMAIL`: [Your Gmail address for sending emails, e.g., yourname@gmail.com]
+    *   `SMTP_PASSWORD`: [Gmail App Password - see instructions below]
+    *   `RECIPIENT_EMAIL`: [Your email where you receive client info, e.g., samrude1@outlook.com]
+    *   `PUSHOVER_USER`: [Optional, for mobile push notifications]
     *   `PUSHOVER_TOKEN`: [Optional]
+
+    **How to get Gmail App Password:**
+    1. Go to https://myaccount.google.com/apppasswords
+    2. Sign in to your Gmail account
+    3. Create an app password for "Mail"
+    4. Copy the 16-character password
+    5. Use this as `SMTP_PASSWORD` (not your regular Gmail password!)
+
 
 4.  **Get URL:**
     Render will give you a URL like `https://sami-ai-agent.onrender.com`.

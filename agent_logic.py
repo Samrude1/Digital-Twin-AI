@@ -1,6 +1,9 @@
 import os
 import json
 import requests
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from pathlib import Path
 from dotenv import load_dotenv
 from openai import OpenAI
@@ -11,6 +14,34 @@ load_dotenv(override=True)
 # --- 1. Tools & Actions ---
 BASE_DIR = Path(__file__).parent / "me"
 
+def send_email(subject, body):
+    """Send email via Gmail SMTP"""
+    sender_email = os.getenv("SMTP_EMAIL")
+    sender_password = os.getenv("SMTP_PASSWORD")
+    recipient_email = os.getenv("RECIPIENT_EMAIL")  # Your email where you receive client info
+    
+    if not all([sender_email, sender_password, recipient_email]):
+        print(f"Email not configured. Message: {body}")
+        return False
+    
+    try:
+        msg = MIMEMultipart()
+        msg['From'] = sender_email
+        msg['To'] = recipient_email
+        msg['Subject'] = subject
+        msg.attach(MIMEText(body, 'plain'))
+        
+        with smtplib.SMTP('smtp.gmail.com', 587) as server:
+            server.starttls()
+            server.login(sender_email, sender_password)
+            server.send_message(msg)
+        
+        print(f"Email sent successfully: {subject}")
+        return True
+    except Exception as e:
+        print(f"Failed to send email: {e}")
+        return False
+
 def push(msg): 
     token = os.getenv("PUSHOVER_TOKEN")
     user = os.getenv("PUSHOVER_USER")
@@ -20,11 +51,37 @@ def push(msg):
         print(f"Pushover not configured. Message: {msg}")
 
 def record_user(email, name="-", notes="-"): 
-    push(f"User: {name}, {email}, {notes}") 
+    # Send email with client details
+    subject = f"🎯 New Portfolio Lead: {name}"
+    body = f"""New contact from portfolio AI chatbot:
+
+Name: {name}
+Email: {email}
+Notes: {notes}
+
+Time: {__import__('datetime').datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+"""
+    send_email(subject, body)
+    
+    # Also send push notification if configured
+    push(f"New Lead: {name} ({email}) - {notes}") 
+    
     return {"status": "ok"}
 
 def record_issue(question): 
-    push(f"Unknown: {question}") 
+    # Send email about unknown question
+    subject = "❓ Unknown Question from Portfolio AI"
+    body = f"""AI chatbot received a question it couldn't answer:
+
+Question: {question}
+
+Time: {__import__('datetime').datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+"""
+    send_email(subject, body)
+    
+    # Also send push notification
+    push(f"Unknown Q: {question}") 
+    
     return {"status": "ok"}
 
 TOOLS = {
