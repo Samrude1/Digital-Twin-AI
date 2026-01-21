@@ -1,6 +1,6 @@
 import os
 import json
-
+import requests
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
@@ -15,13 +15,43 @@ load_dotenv(override=True)
 BASE_DIR = Path(__file__).parent / "me"
 
 def send_email(subject, body):
-    """Send email via Gmail SMTP"""
+    """Send email via Resend API (preferred for Render) or SMTP (local fallback)"""
+    recipient_email = os.getenv("RECIPIENT_EMAIL")
+    
+    # METHOD 1: Resend API (Works on Render because it uses HTTP, not SMTP ports)
+    resend_key = os.getenv("RESEND_API_KEY")
+    if resend_key:
+        try:
+            print(f"Attempting to send via Resend API to {recipient_email}...")
+            response = requests.post(
+                "https://api.resend.com/emails",
+                headers={
+                    "Authorization": f"Bearer {resend_key}",
+                    "Content-Type": "application/json"
+                },
+                json={
+                    "from": "Portfolio AI <onboarding@resend.dev>", # Default for free tier
+                    "to": [recipient_email],
+                    "subject": subject,
+                    "text": body
+                },
+                timeout=10
+            )
+            response.raise_for_status()
+            print(f"Email sent via Resend! ID: {response.json().get('id')}")
+            return True
+        except Exception as e:
+            print(f"Resend API failed: {e}")
+            # Fall through to try SMTP if Resend fails? Or just return False?
+            # Usually if API fails, SMTP won't work either on Render.
+            return False
+
+    # METHOD 2: Gmail SMTP (Works Locally, BLOCKED on Render)
     sender_email = os.getenv("SMTP_EMAIL")
     sender_password = os.getenv("SMTP_PASSWORD")
-    recipient_email = os.getenv("RECIPIENT_EMAIL")  # Your email where you receive client info
     
     if not all([sender_email, sender_password, recipient_email]):
-        print(f"Email not configured. Message: {body}")
+        print(f"Email not configured (No Resend Key, No SMTP details). Message: {body}")
         return False
     
     try:
@@ -31,14 +61,15 @@ def send_email(subject, body):
         msg['Subject'] = subject
         msg.attach(MIMEText(body, 'plain'))
         
+        # Use simple SMTP_SSL on 465
         with smtplib.SMTP_SSL('smtp.gmail.com', 465, timeout=10) as server:
             server.login(sender_email, sender_password)
             server.send_message(msg)
         
-        print(f"Email sent successfully: {subject}")
+        print(f"Email sent via SMTP successfully: {subject}")
         return True
     except Exception as e:
-        print(f"Failed to send email: {e}")
+        print(f"Failed to send email via SMTP: {e}")
         return False
 
 def record_user(email, name="-", notes="-"): 
