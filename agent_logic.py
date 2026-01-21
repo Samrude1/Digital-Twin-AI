@@ -46,12 +46,40 @@ def send_email(subject, body):
             # Usually if API fails, SMTP won't work either on Render.
             return False
 
-    # METHOD 2: Gmail SMTP (Works Locally, BLOCKED on Render)
+    # METHOD 2: SendGrid API (Works on Render)
+    sendgrid_key = os.getenv("SENDGRID_API_KEY")
+    if sendgrid_key:
+        try:
+            print(f"Attempting to send via SendGrid API to {recipient_email}...")
+            response = requests.post(
+                "https://api.sendgrid.com/v3/mail/send",
+                headers={
+                    "Authorization": f"Bearer {sendgrid_key}",
+                    "Content-Type": "application/json"
+                },
+                json={
+                    "personalizations": [{"to": [{"email": recipient_email}]}],
+                    "from": {"email": os.getenv("SMTP_EMAIL") or "no-reply@portfolio.com"}, # SendGrid requires a verified sender
+                    "subject": subject,
+                    "content": [{"type": "text/plain", "value": body}]
+                },
+                timeout=10
+            )
+            if response.status_code in [200, 201, 202]:
+                print(f"Email sent via SendGrid! Status: {response.status_code}")
+                return True
+            else:
+                print(f"SendGrid failed: {response.status_code} - {response.text}")
+                # Fall through to SMTP
+        except Exception as e:
+            print(f"SendGrid API failed: {e}")
+
+    # METHOD 3: Gmail SMTP (Works Locally, BLOCKED on Render)
     sender_email = os.getenv("SMTP_EMAIL")
     sender_password = os.getenv("SMTP_PASSWORD")
     
     if not all([sender_email, sender_password, recipient_email]):
-        print(f"Email not configured (No Resend Key, No SMTP details). Message: {body}")
+        print(f"Email not configured (No Resend/SendGrid Key, No SMTP details).")
         return False
     
     try:
