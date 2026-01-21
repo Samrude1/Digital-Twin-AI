@@ -15,22 +15,28 @@ load_dotenv(override=True)
 BASE_DIR = Path(__file__).parent / "me"
 
 def send_email(subject, body):
-    """Send email via Resend API (preferred for Render) or SMTP (local fallback)"""
-    recipient_email = os.getenv("RECIPIENT_EMAIL")
+    """Send email via Resend/SendGrid API (preferred for Render) or SMTP (local fallback)"""
+    # 1. CLEAN INPUTS (Remove invisible spaces!)
+    recipient_email = os.getenv("RECIPIENT_EMAIL", "").strip()
+    smtp_email = os.getenv("SMTP_EMAIL", "").strip()
+    smtp_password = os.getenv("SMTP_PASSWORD", "").strip()
     
-    # METHOD 1: Resend API (Works on Render because it uses HTTP, not SMTP ports)
-    resend_key = os.getenv("RESEND_API_KEY")
+    # Determine the "From" address for APIs
+    # Priority: Explicit Verified Sender -> SMTP Email -> Default
+    from_email = os.getenv("SENDGRID_VERIFIED_SENDER", "").strip() or smtp_email or "no-reply@portfolio.com"
+
+    print(f"DEBUG: Email Logic - From: '{from_email}', To: '{recipient_email}'")
+
+    # METHOD 1: Resend API
+    resend_key = os.getenv("RESEND_API_KEY", "").strip()
     if resend_key:
         try:
-            print(f"Attempting to send via Resend API to {recipient_email}...")
+            print(f"Attempting to send via Resend API...")
             response = requests.post(
                 "https://api.resend.com/emails",
-                headers={
-                    "Authorization": f"Bearer {resend_key}",
-                    "Content-Type": "application/json"
-                },
+                headers={"Authorization": f"Bearer {resend_key}", "Content-Type": "application/json"},
                 json={
-                    "from": "Portfolio AI <onboarding@resend.dev>", # Default for free tier
+                    "from": "Portfolio AI <onboarding@resend.dev>",
                     "to": [recipient_email],
                     "subject": subject,
                     "text": body
@@ -42,24 +48,18 @@ def send_email(subject, body):
             return True
         except Exception as e:
             print(f"Resend API failed: {e}")
-            # Fall through to try SMTP if Resend fails? Or just return False?
-            # Usually if API fails, SMTP won't work either on Render.
-            return False
 
-    # METHOD 2: SendGrid API (Works on Render)
-    sendgrid_key = os.getenv("SENDGRID_API_KEY")
+    # METHOD 2: SendGrid API
+    sendgrid_key = os.getenv("SENDGRID_API_KEY", "").strip()
     if sendgrid_key:
         try:
-            print(f"Attempting to send via SendGrid API to {recipient_email}...")
+            print(f"Attempting to send via SendGrid API...")
             response = requests.post(
                 "https://api.sendgrid.com/v3/mail/send",
-                headers={
-                    "Authorization": f"Bearer {sendgrid_key}",
-                    "Content-Type": "application/json"
-                },
+                headers={"Authorization": f"Bearer {sendgrid_key}", "Content-Type": "application/json"},
                 json={
                     "personalizations": [{"to": [{"email": recipient_email}]}],
-                    "from": {"email": os.getenv("SENDGRID_VERIFIED_SENDER") or os.getenv("SMTP_EMAIL") or "no-reply@portfolio.com"}, # Must be verified in SendGrid
+                    "from": {"email": from_email},
                     "subject": subject,
                     "content": [{"type": "text/plain", "value": body}]
                 },
@@ -70,7 +70,6 @@ def send_email(subject, body):
                 return True
             else:
                 print(f"SendGrid failed: {response.status_code} - {response.text}")
-                # Fall through to SMTP
         except Exception as e:
             print(f"SendGrid API failed: {e}")
 
