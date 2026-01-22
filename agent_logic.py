@@ -287,8 +287,24 @@ Remember: You are not an assistant describing Sami. You ARE Sami."""
 
         msgs = [{"role": "system", "content": system_prompt}] + history + [{"role": "user", "content": msg}]
         
-        while True:
-            res = self.api.chat.completions.create(model="gemini-2.0-flash", messages=msgs, tools=TOOL_DEFS)
+        # Max iterations for tool calls to prevent infinite loops
+        max_iter = 5
+        iter_count = 0
+        
+        while iter_count < max_iter:
+            iter_count += 1
+            # Add timeout to prevent hanging on Render
+            try:
+                res = self.api.chat.completions.create(
+                    model="gemini-2.0-flash", 
+                    messages=msgs, 
+                    tools=TOOL_DEFS,
+                    timeout=30.0  # 30 second timeout
+                )
+            except Exception as e:
+                print(f"LLM Error or Timeout: {e}")
+                return "I'm having trouble connecting to my brain right now. Please try again in a moment."
+
             msg_obj = res.choices[0].message
             
             if not msg_obj.tool_calls: 
@@ -296,12 +312,17 @@ Remember: You are not an assistant describing Sami. You ARE Sami."""
             
             msgs.append(msg_obj)
             for tc in msg_obj.tool_calls:
-                print(f"Tool call: {tc.function.name}")
+                print(f"Tool call ({iter_count}/{max_iter}): {tc.function.name}")
                 if tc.function.name in TOOLS:
-                    args = json.loads(tc.function.arguments)
-                    result = TOOLS[tc.function.name](**args)
-                    res_content = json.dumps(result)
+                    try:
+                        args = json.loads(tc.function.arguments)
+                        result = TOOLS[tc.function.name](**args)
+                        res_content = json.dumps(result)
+                    except Exception as e:
+                        res_content = json.dumps({"error": str(e)})
                 else:
                     res_content = json.dumps({"error": "Tool not found"})
                     
                 msgs.append({"role": "tool", "content": res_content, "tool_call_id": tc.id})
+        
+        return "I'm doing a lot of thinking! Let's pause here. What was your main question?"

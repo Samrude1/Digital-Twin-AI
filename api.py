@@ -16,20 +16,21 @@ app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 # DIAGNOSTIC: Check available models
-try:
-    api_key = os.environ.get("GEMINI_API_KEY")
-    if api_key:
-        print(f"DIAGNOSTIC: Key found (starts with {api_key[:4]}). Listing models...")
-        genai.configure(api_key=api_key)
-        models = list(genai.list_models())
-        print("DIAGNOSTIC: Available Models:")
-        for m in models:
-            if 'generateContent' in m.supported_generation_methods:
-                print(f" - {m.name}")
-    else:
-        print("DIAGNOSTIC: GEMINI_API_KEY not found in env.")
-except Exception as e:
-    print(f"DIAGNOSTIC ERROR: {e}")
+# (Disabled for production speed - avoids blocking startup)
+# try:
+#     api_key = os.environ.get("GEMINI_API_KEY")
+#     if api_key:
+#         print(f"DIAGNOSTIC: Key found (starts with {api_key[:4]}). Listing models...")
+#         genai.configure(api_key=api_key)
+#         models = list(genai.list_models())
+#         print("DIAGNOSTIC: Available Models:")
+#         for m in models:
+#             if 'generateContent' in m.supported_generation_methods:
+#                 print(f" - {m.name}")
+#     else:
+#         print("DIAGNOSTIC: GEMINI_API_KEY not found in env.")
+# except Exception as e:
+#     print(f"DIAGNOSTIC ERROR: {e}")
 
 # Allow CORS for development and production
 origins = [
