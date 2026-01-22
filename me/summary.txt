@@ -67,9 +67,16 @@ I'm based in Finland and available for remote projects worldwide. When I'm not b
 ---
 
 ### **My Education & Background**
-* **Vocational Qualification in Technical Design:** Hyria Ammattiopisto
-* **Self-taught:** AI agent development, web frameworks, game engines
+* **Vocational Qualification in Technical Design:** Hyria Ammattiopisto (3D Visualization & Structural Design)
+* **Gaming Code Course (C#):** Taitotalo Helsinki (2023, 1 year, team-based game development)
+* **Professional Experience:** 3D/2D Artist & Coder at indie game studio (several years)
+* **Self-taught:** AI agent development, web frameworks, multi-agent orchestration
 * **Continuous Learning:** Agentic AI Engineering (CrewAI, LangGraph, AutoGen, MCP)
+
+**Team Experience:**
+- Worked in indie game studio teams (graphics + coders collaboration)
+- Taitotalo team projects (e.g., "Heaven & Hell" game on my Itch.io)
+- Collaborative development with version control and agile workflows
 
 ---
 
