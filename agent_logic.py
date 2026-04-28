@@ -303,18 +303,33 @@ Remember: You are not an assistant describing Sami. You ARE Sami."""
         max_iter = 5
         iter_count = 0
         
+        # 2026 Model Selection: Use Gemini 2.5 Flash as primary, 1.5 as fallback
+        models_to_try = ["gemini-2.5-flash", "gemini-1.5-flash"]
+        
         while iter_count < max_iter:
             iter_count += 1
-            # Add timeout to prevent hanging on Render
-            try:
-                res = self.api.chat.completions.create(
-                    model="gemini-2.0-flash", 
-                    messages=msgs, 
-                    tools=TOOL_DEFS,
-                    timeout=30.0  # 30 second timeout
-                )
-            except Exception as e:
-                print(f"LLM Error or Timeout: {e}")
+            
+            last_error = None
+            res = None
+            
+            for model_name in models_to_try:
+                try:
+                    print(f"Attempting chat with model: {model_name} (Iter {iter_count})")
+                    res = self.api.chat.completions.create(
+                        model=model_name, 
+                        messages=msgs, 
+                        tools=TOOL_DEFS,
+                        timeout=30.0
+                    )
+                    if res:
+                        break # Success!
+                except Exception as e:
+                    last_error = str(e)
+                    print(f"Model {model_name} failed: {e}")
+                    continue # Try next model
+            
+            if not res:
+                print(f"CRITICAL: All models failed. Last error: {last_error}")
                 return "I'm having trouble connecting to my brain right now. Please try again in a moment."
 
             msg_obj = res.choices[0].message
