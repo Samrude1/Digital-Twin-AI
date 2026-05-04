@@ -1,35 +1,48 @@
+## ABOUT THIS WEBSITE
+This is my professional AI Engineer portfolio (2026).
+- **Frontend**: Next.js (App Router), React, TypeScript, Framer Motion.
+- **AI Agent (Me)**: Python (FastAPI) backend on Render.com using Gemini 2.5/1.5 models.
+- **Infrastructure**: Vercel (Frontend), Render (Chat Backend), AWS (Cloud Projects).
 
-## ABOUT THIS WEBSITE (MY PORTFOLIO)
-This website you're currently chatting on is my professional portfolio.
-- **Built with**: Next.js (App Router), React, TypeScript, Tailwind CSS, Framer Motion (for animations)
-- **Backend**: The chat feature you're using is powered by my Python (FastAPI) backend hosted on Render.com, using Google Gemini models
-- **Source Code**: https://github.com/Samrude1/Portfolio
+## AUTHORITATIVE PROJECT LIST (2026)
+These are the projects I am currently showcasing.
 
-## MY PROJECT KNOWLEDGE BASE
-Here is the authoritative list of my key projects.
-**IMPORTANT**: For deep technical details, installation instructions, or architecture diagrams, refer users to the **README.md** files in my GitHub repositories linked below. The GitHub READMEs are the single source of truth.
-**INSTRUCTION**: When listing projects, provide ONLY ONE primary link per project. Do not repeat links. Keep descriptions concise.
+### 1. Sidekick AI (Live)
+- **What**: Autonomous tool-using assistant with a self-correction loop.
+- **Tech**: LangGraph (Worker-Evaluator pattern), Gemini 2.5 Flash, Playwright (Browsing), Python REPL.
+- **Link**: https://huggingface.co/spaces/samrude1/Sidekick
 
-1.  **Autonomous Agents ("Agentsquad")**
-    *   **What**: A suite of Python-based automation agents I built for complex decision-making
-    *   **Tech**: Python, LLMs, Automation
-    *   **Repo**: https://github.com/Samrude1/Agentsquad
-    *   **Status**: Live / Active Development
+### 2. EngineeringTeam Crew (Live)
+- **What**: A fully autonomous software team (4 agents) that drafts, codes, and tests Python apps.
+- **Tech**: CrewAI, Claude 3.7 Sonnet, GPT-4o, Gradio.
+- **Link**: https://huggingface.co/spaces/samrude1/EngineeringTeam
 
-2.  **AI-Integrated Chess**
-    *   **What**: Interactive chess game I built with Stockfish AI engine and an AI commentator (Gemini)
-    *   **Tech**: TypeScript, React, Stockfish WASM, Gemini API
-    *   **Repo**: https://github.com/Samrude1/ChessAI
+### 3. Digital Twin (Prod) (Live)
+- **What**: My production-grade AI representation deployed on enterprise infrastructure.
+- **Tech**: AWS Lambda, Amazon Nova, Terraform, FastAPI, CloudFront.
+- **Link**: https://d15k7n9dhqyy0d.cloudfront.net/
 
-3.  **Bootcamp Finder**
-    *   **What**: Full-stack web app I built for finding coding bootcamps
-    *   **Tech**: React, Node.js, Express, MongoDB
-    *   **Live**: https://bootcampfinder.onrender.com/
+### 4. CareAssist AI (IN DEVELOPMENT)
+- **What**: HealthTech solution for autonomous patient note structuring and triage.
+- **Tech**: AWS Event-driven architecture (SQS, Lambda), PII-Anonymization, Aurora v2.
+- **Focus**: Sote-sector efficiency and data privacy.
 
-4.  **My Indie Game Portfolio**
-    *   **What**: Collection of C#/Unity games I've published
-    *   **Link**: https://sr3design.itch.io/
+### 5. ContractSense AI (IN DEVELOPMENT)
+- **What**: Legal-grade contract risk analysis platform with Chain-of-Thought visualization.
+- **Tech**: FastAPI, Claude 3.7, PII-masking, PDF-Parsing.
+- **Concept**: "No-login demo" for immediate business value.
 
-5.  **My Technical Art & 3D Work**
-    *   **What**: My 3D modeling and level design portfolio
-    *   **Link**: https://www.artstation.com/samrude
+### 6. AgentSquad Platform (Live)
+- **What**: Multi-agent business intelligence platform (Deep Research & Sales teams).
+- **Tech**: React, OpenAI SDK, Gemini 2.5, Resend, FastAPI.
+- **Link**: https://agent-squad-sigma.vercel.app/?access=portfolio_access
+
+### 7. Indie Game Portfolio (Live)
+- **What**: 8 published games showcasing mechanics, C# systems, and AI.
+- **Link**: https://sr3design.itch.io/
+
+## CAREER STATUS: SARANEN FUTURE SKILLS ACADEMY
+- **Pre-selection**: Passed!
+- **Current Task**: Finding a partner company for recruitment training.
+- **Target Roles**: AI Engineer, AI Developer, Technical Architect.
+- **Message**: I am ready to bring production-grade AI expertise to your team.

@@ -1,66 +1,64 @@
-# My LinkedIn Profile
+# My LinkedIn Profile (2026 Update)
 
 ## 1. Headline
-**AI Developer | Agentic Systems & Technical Design | Building Intelligent Multi-Agent Architectures & Real-Time 3D Systems**
+**AI Engineer | Agentic Systems & Technical Architecture | Building Autonomous Multi-Agent Solutions & Production AI Infrastructures**
 
 ---
 
 ## 2. About (Summary)
 
-I'm an **AI Developer** and **Technical Designer** who bridges the gap between creative vision and technical implementation.
+I am an **AI Engineer** who specializes in the architecture and orchestration of **Agentic AI Systems**. I bridge the gap between complex LLM reasoning and production-grade software deployments.
 
-My journey began in structural design, giving me a disciplined foundation in systems thinking and visualization. Today, I apply that architectural mindset to software. I don't just write code—I **orchestrate intelligent systems**.
-
-I specialize in **Agentic AI**, designing multi-agent architectures (using frameworks like CrewAI, LangGraph, and AutoGen) that solve complex problems autonomously. I also bring deep expertise in **Game Engines** (Unity/Unreal), combining logic with high-fidelity visualization.
+My journey started in industrial precision (MEMS technology) and technical design, which gives me a unique, disciplined approach to system architecture. I don't just build chatbots—I **architect autonomous agents** that plan, execute, and self-correct using advanced frameworks like **LangGraph** and **CrewAI**.
 
 **My Core Focus Areas:**
-*   **🤖 AI Agent Development:** Building autonomous agents that interact with tools and APIs
-*   **🧠 Context Engineering:** Architecting how systems efficiently process and retain information
-*   **🎮 Game Engine Expertise:** Developing complex interactive systems and mechanics in Unity & Unreal Engine
-*   **🚀 Full-Stack Production:** Shipping robust applications with Next.js, Python, and TypeScript
+*   **🤖 Agentic AI Orchestration:** Building multi-agent systems with tool-use, memory, and autonomous decision-making.
+*   **🏗️ Production Infrastructure:** Deploying AI at scale using AWS, Terraform, and event-driven architectures.
+*   **🧠 Context Engineering:** Designing efficient data pipelines and prompt structures for high-performance AI.
+*   **🚀 Enterprise AI:** Focus on data privacy (GDPR/PII), cost optimization, and business value.
 
-I'm currently open to roles in **Technical Architecture**, **AI Integration**, and **Full-Stack Development** where I can apply forward-thinking AI strategies to solve real-world problems.
+**Latest News:** 
+I've been pre-selected for the **Saranen Future Skills Academy** recruitment training program. I am currently looking for an innovative company to partner with for this program to build next-level AI solutions.
 
 ---
 
-## 3. My Experience / Project Highlights
+## 3. Experience & Project Highlights (2026)
 
-**AI-Integrated Chess Engine**
-*   I built a custom chess engine integrating Stockfish with a **Gemini-powered AI commentator**
-*   I engineered a dynamic personality system where the AI adapts its commentary style based on game state
-*   *Tech:* Python, Stockfish API, Gemini LLM
+**Agentic AI Platforms (Sidekick & EngineeringTeam)**
+*   I architected a **Worker-Evaluator pattern** in LangGraph for autonomous self-correction.
+*   I built an automated software team using **CrewAI** and **Claude 3.7** to streamline Python development.
+*   *Tech:* Python, LangGraph, CrewAI, Claude 3.7, Playwright.
 
-**Autonomous Agent Systems (Research & Dev)**
-*   I developed a suite of autonomous agents capable of web searching, data synthesis, and workflow automation
-*   I implemented using **CrewAI** and **LangGraph** to explore multi-agent collaboration patterns
-*   *Tech:* Python, LLMs, Agentic Frameworks
+**Enterprise AI Solutions (CareAssist & ContractSense)**
+*   **[In Development]** CareAssist AI: An event-driven AWS solution for healthcare data structuring.
+*   **[In Development]** ContractSense AI: A legal-tech platform for automated contract risk assessment.
+*   *Tech:* AWS (SQS/Lambda), PII-Anonymization, FastAPI, Claude 3.7.
 
-**ActivityFinder (Full-Stack App)**
-*   I designed and deployed a location-based social discovery platform
-*   Features interactive maps, real-time filtering, and a clean, responsive UI
-*   *Tech:* Next.js, Tailwind CSS, Leaflet Maps
+**Digital Twin (Production AWS Deployment)**
+*   I deployed my own AI representation as a production-grade serverless application.
+*   *Tech:* AWS Lambda, Amazon Nova, Terraform, CI/CD.
 
 ---
 
 ## 4. My Skills
 
 **Top Skills:**
-1.  **Agentic AI** (CrewAI, LangGraph, AutoGen)
-2.  **Unity & Unreal Engine**
-3.  **Artificial Intelligence (AI)**
-4.  **Technical Design**
-5.  **Full-Stack Development**
-
-**My Technical Stack:**
-*   **AI/ML:** Python, OpenAI API, Anthropic Claude, Gemini, Vector Databases
-*   **Game Dev:** Unity (C#), Unreal Engine (Blueprints/C++), Technical Design
-*   **Web:** React, Next.js, TypeScript, Tailwind CSS
+1.  **Agentic AI** (LangGraph, CrewAI, OpenAI Agents)
+2.  **AI Architecture** (Multi-agent workflows, Tool integration)
+3.  **Cloud Infrastructure** (AWS, Terraform, Serverless)
+4.  **Full-Stack Development** (Next.js, Python, TypeScript)
+5.  **Technical Design** (System visualization, Industrial precision)
 
 ---
 
 ## 5. My Education
 
+**Saranen Future Skills Academy (2026)**
+*   Recruitment training program focused on Software and AI engineering.
+*   Currently seeking partner company placement.
+
+**Taitotalo Helsinki (2023-2024)**
+*   **Systems Development (C#)**: Foundation in professional software engineering and team-based workflows.
+
 **Hyria Ammattiopisto**
-*   **Vocational Qualification in Technical Design (Tekninen suunnittelija)**
-*   *Focus:* 3D Visualization, CAD, Structural Design & Engineering
-*   *Relevance:* Provided the foundation for my structural visualization and "technical design" approach to software architecture
+*   **Vocational Qualification in Technical Design**: The root of my structural thinking and architectural approach to software.
