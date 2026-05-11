@@ -303,8 +303,8 @@ Remember: You are not an assistant describing Sami. You ARE Sami."""
         max_iter = 5
         iter_count = 0
         
-        # 2026 Model Selection: Use Gemini 2.5 Flash as primary, 1.5 as fallback
-        models_to_try = ["gemini-2.5-flash", "gemini-1.5-flash"]
+        # 2026 Model Selection: Use Gemini 3.1 Flash as primary, 3.0/2.5 as fallbacks
+        models_to_try = ["gemini-3.1-flash", "gemini-3.0-flash", "gemini-2.5-flash", "gemini-1.5-flash"]
         
         while iter_count < max_iter:
             iter_count += 1
