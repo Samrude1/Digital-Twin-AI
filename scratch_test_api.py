@@ -4,23 +4,24 @@ from dotenv import load_dotenv
 
 load_dotenv(override=True)
 
-api_key = os.getenv('GEMINI_API_KEY')
-print(f"Using key: {api_key[:10]}...")
+api_key = os.getenv('OPENROUTER_API_KEY')
+print(f"Using key: {api_key[:10] if api_key else 'None'}...")
 
 client = OpenAI(
     api_key=api_key,
-    base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
+    base_url="https://openrouter.ai/api/v1"
 )
 
 try:
     print("Listing models...")
-    models = client.models.list()
-    for m in models:
-        print(f"- {m.id}")
+    # NOTE: OpenRouter does not support standard models.list() easily, so skipping
+    # models = client.models.list()
+    # for m in models:
+    #     print(f"- {m.id}")
     
-    print("\nTesting chat completion with gemini-1.5-flash...")
+    print("\nTesting chat completion with google/gemma-4-31b-it:free...")
     res = client.chat.completions.create(
-        model="gemini-1.5-flash",
+        model="google/gemma-4-31b-it:free",
         messages=[{"role": "user", "content": "hi"}]
     )
     print(f"Response: {res.choices[0].message.content}")

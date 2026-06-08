@@ -5,7 +5,7 @@
 [![Live Demo](https://img.shields.io/badge/Live-samirautanen.fi-blue)](https://samirautanen.fi)
 [![Python](https://img.shields.io/badge/Python-3.10+-green)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-Latest-teal)](https://fastapi.tiangolo.com/)
-[![Gemini](https://img.shields.io/badge/Gemini-2.0%20Flash-orange)](https://ai.google.dev/)
+[![OpenRouter](https://img.shields.io/badge/OpenRouter-Gemma_4_31B-blue)](https://openrouter.ai/)
 
 ---
 
@@ -17,7 +17,7 @@ This is the **backend intelligence engine** for my portfolio's AI assistant—a 
 
 ### What Makes This Different
 
-- ✅ **Autonomous Agent** - Not scripted responses; uses Gemini 2.0 Flash with tool calling
+- ✅ **Autonomous Agent** - Not scripted responses; uses Google Gemma 4 31B with tool calling via OpenRouter
 - ✅ **Production-Ready** - Deployed on Render.com with rate limiting, CORS, health checks
 - ✅ **Tool Calling** - Captures leads, sends emails, records unknown questions
 - ✅ **Guardrails** - Stays on-topic, enforces first-person identity, handles scope violations
@@ -29,7 +29,7 @@ This is the **backend intelligence engine** for my portfolio's AI assistant—a 
 ## ✨ Key Features
 
 ### 🧠 Intelligent Agent Core
-- **Gemini 2.0 Flash** via OpenAI SDK compatibility layer
+- **Google Gemma 4 31B** via OpenRouter using OpenAI SDK compatibility layer
 - **Context loading** from structured text files (`summary.txt`, `linkedin.txt`, `portfolio.txt`)
 - **First-person identity enforcement** - Agent speaks as "I", never third-person
 - **Language detection** - Responds in English or Finnish based on user input
@@ -99,7 +99,7 @@ Automatically sends notifications for:
           ┌──────────────┴──────────────┐
           ▼                             ▼
 ┌──────────────────────┐    ┌──────────────────────┐
-│  Gemini 2.0 Flash    │    │   Email System       │
+│  OpenRouter (Gemma)  │    │   Email System       │
 │  (via OpenAI SDK)    │    │  ┌────────────────┐  │
 │                      │    │  │ Resend API     │  │
 │  - Tool calling      │    │  ├────────────────┤  │
@@ -117,7 +117,7 @@ Automatically sends notifications for:
 | Component | Technology |
 |-----------|-----------|
 | **Backend Framework** | FastAPI + Uvicorn |
-| **AI Model** | Google Gemini 2.0 Flash |
+| **AI Model** | Google Gemma 4 31B (OpenRouter) |
 | **SDK** | OpenAI Python SDK (compatibility mode) |
 | **Rate Limiting** | SlowAPI |
 | **Email** | Resend / SendGrid / SMTP |
@@ -228,7 +228,7 @@ pip install -r requirements.txt
 2. **Set up environment variables:**
 Create `.env` file:
 ```bash
-GEMINI_API_KEY=your_gemini_api_key
+OPENROUTER_API_KEY=your_openrouter_api_key
 RECIPIENT_EMAIL=your_email@example.com
 
 # Email provider (choose one):

@@ -169,8 +169,12 @@ TOOL_DEFS = [
 class Me:
     def __init__(self):
         self.api = OpenAI(
-            api_key=os.getenv('GEMINI_API_KEY'), 
-            base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
+            api_key=os.getenv('OPENROUTER_API_KEY'), 
+            base_url="https://openrouter.ai/api/v1",
+            default_headers={
+                "HTTP-Referer": "https://samirautanen.fi",
+                "X-Title": "Sami Portfolio AI"
+            }
         )
         
         # Load Bio from text files
@@ -303,8 +307,8 @@ Remember: You are not an assistant describing Sami. You ARE Sami."""
         max_iter = 5
         iter_count = 0
         
-        # 2026 Model Selection: Use Gemini 3.1 Flash as primary, 3.0/2.5 as fallbacks
-        models_to_try = ["gemini-3.1-flash", "gemini-3.0-flash", "gemini-2.5-flash", "gemini-1.5-flash"]
+        # Model Selection: Use OpenRouter
+        models_to_try = ["google/gemma-4-31b-it:free"]
         
         while iter_count < max_iter:
             iter_count += 1
