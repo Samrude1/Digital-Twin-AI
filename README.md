@@ -5,7 +5,7 @@
 [![Live Demo](https://img.shields.io/badge/Live-samirautanen.fi-blue)](https://samirautanen.fi)
 [![Python](https://img.shields.io/badge/Python-3.10+-green)](https://www.python.org/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-Latest-teal)](https://fastapi.tiangolo.com/)
-[![OpenRouter](https://img.shields.io/badge/OpenRouter-GPT_Mini_Latest-blue)](https://openrouter.ai/)
+[![OpenRouter](https://img.shields.io/badge/OpenRouter-GPT_4o_mini-blue)](https://openrouter.ai/)
 
 ---
 
@@ -17,7 +17,7 @@ This is the **backend intelligence engine** for my portfolio's AI assistant—a 
 
 ### What Makes This Different
 
-- ✅ **Autonomous Agent** - Not scripted responses; uses OpenAI GPT Mini Latest with tool calling via OpenRouter
+- ✅ **Autonomous Agent** - Not scripted responses; uses OpenAI GPT-4o-mini with tool calling via OpenRouter
 - ✅ **Production-Ready** - Deployed on Render.com with rate limiting, CORS, health checks
 - ✅ **Tool Calling** - Captures leads, sends emails, records unknown questions
 - ✅ **Guardrails** - Stays on-topic, enforces first-person identity, handles scope violations
@@ -29,7 +29,7 @@ This is the **backend intelligence engine** for my portfolio's AI assistant—a 
 ## ✨ Key Features
 
 ### 🧠 Intelligent Agent Core
-- **OpenAI GPT Mini Latest** via OpenRouter using OpenAI SDK compatibility layer
+- **OpenAI GPT-4o-mini** via OpenRouter using OpenAI SDK compatibility layer
 - **Context loading** from structured text files (`summary.txt`, `linkedin.txt`, `portfolio.txt`)
 - **First-person identity enforcement** - Agent speaks as "I", never third-person
 - **Language detection** - Responds in English or Finnish based on user input
@@ -117,7 +117,7 @@ Automatically sends notifications for:
 | Component | Technology |
 |-----------|-----------|
 | **Backend Framework** | FastAPI + Uvicorn |
-| **AI Model** | OpenAI GPT Mini Latest (OpenRouter) |
+| **AI Model** | OpenAI GPT-4o-mini (OpenRouter) |
 | **SDK** | OpenAI Python SDK (compatibility mode) |
 | **Rate Limiting** | SlowAPI |
 | **Email** | Resend / SendGrid / SMTP |
@@ -348,7 +348,7 @@ Allows requests from:
 
 ### Environment Variables
 All sensitive data in environment variables:
-- API keys (Gemini, Resend, SendGrid)
+- API keys (OpenRouter, Resend, SendGrid)
 - Email credentials
 - Recipient addresses
 - Never committed to git
