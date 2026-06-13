@@ -308,7 +308,7 @@ Remember: You are not an assistant describing Sami. You ARE Sami."""
         iter_count = 0
         
         # Model Selection: Use OpenRouter (Paid model)
-        models_to_try = ["openai/gpt-mini-latest"]
+        models_to_try = ["openai/gpt-4o-mini"]
         
         while iter_count < max_iter:
             iter_count += 1
