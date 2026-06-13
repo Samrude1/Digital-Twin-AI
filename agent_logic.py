@@ -210,7 +210,7 @@ IDENTITY RULES (CRITICAL):
 WHO I AM:
 {self.bio}
 
-CURRENT AVAILABILITY (MAY 2026):
+CURRENT AVAILABILITY (JUNE 2026):
 - Status: Pre-selected for Saranen Future Skills Academy recruitment training.
 - Goal: Seeking a partner company (AI Engineer/Developer roles) for the training program.
 - Work type: Full-time training/employment.
