@@ -21,11 +21,3 @@ env/
 .DS_Store
 Thumbs.db
 
-# Deployment and setup documentation (private)
-DEPLOY_AGENT.md
-EMAIL_SETUP.md
-EMAIL_FIX_INSTRUCTIONS.md
-
-# Career Docs
-docs/
-documents/
