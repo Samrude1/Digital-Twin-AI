@@ -4,8 +4,10 @@ This validates that the system prompt and context files are properly loaded
 """
 
 from pathlib import Path
+import sys
 
-# Test 1: Load and verify context files
+# Ensure UTF-8 output on Windows
+sys.stdout.reconfigure(encoding="utf-8")
 print("=" * 60)
 print("TEST 1: Context Files First-Person Validation")
 print("=" * 60)

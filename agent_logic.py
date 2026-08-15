@@ -1,37 +1,35 @@
 import os
 import json
-import requests
 import smtplib
-from email.mime.text import MIMEText
+from datetime import datetime
 from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from pathlib import Path
+from typing import Any
+
 from dotenv import load_dotenv
 from openai import OpenAI
+import requests
 
 # Load environment variables
 load_dotenv(override=True)
 
-# --- 1. Tools & Actions ---
 BASE_DIR = Path(__file__).parent / "me"
 
-def send_email(subject, body):
-    """Send email via Resend/SendGrid API (preferred for Render) or SMTP (local fallback)"""
-    # 1. CLEAN INPUTS (Remove invisible spaces!)
+
+# --- 1. Email Notifications & Tools ---
+
+def send_email(subject: str, body: str) -> bool:
+    """Send email via Resend/SendGrid API (preferred for Render) or SMTP (local fallback)."""
     recipient_email = os.getenv("RECIPIENT_EMAIL", "").strip()
     smtp_email = os.getenv("SMTP_EMAIL", "").strip()
     smtp_password = os.getenv("SMTP_PASSWORD", "").strip()
-    
-    # Determine the "From" address for APIs
-    # Priority: Explicit Verified Sender -> SMTP Email -> Default
     from_email = os.getenv("SENDGRID_VERIFIED_SENDER", "").strip() or smtp_email or "no-reply@portfolio.com"
-
-    print(f"DEBUG: Email Logic - From: '{from_email}', To: '{recipient_email}'")
 
     # METHOD 1: Resend API
     resend_key = os.getenv("RESEND_API_KEY", "").strip()
     if resend_key:
         try:
-            print(f"Attempting to send via Resend API...")
             response = requests.post(
                 "https://api.resend.com/emails",
                 headers={"Authorization": f"Bearer {resend_key}", "Content-Type": "application/json"},
@@ -39,9 +37,9 @@ def send_email(subject, body):
                     "from": "Portfolio AI <onboarding@resend.dev>",
                     "to": [recipient_email],
                     "subject": subject,
-                    "text": body
+                    "text": body,
                 },
-                timeout=10
+                timeout=10,
             )
             response.raise_for_status()
             print(f"Email sent via Resend! ID: {response.json().get('id')}")
@@ -53,7 +51,6 @@ def send_email(subject, body):
     sendgrid_key = os.getenv("SENDGRID_API_KEY", "").strip()
     if sendgrid_key:
         try:
-            print(f"Attempting to send via SendGrid API...")
             response = requests.post(
                 "https://api.sendgrid.com/v3/mail/send",
                 headers={"Authorization": f"Bearer {sendgrid_key}", "Content-Type": "application/json"},
@@ -61,9 +58,9 @@ def send_email(subject, body):
                     "personalizations": [{"to": [{"email": recipient_email}]}],
                     "from": {"email": from_email},
                     "subject": subject,
-                    "content": [{"type": "text/plain", "value": body}]
+                    "content": [{"type": "text/plain", "value": body}],
                 },
-                timeout=10
+                timeout=10,
             )
             if response.status_code in [200, 201, 202]:
                 print(f"Email sent via SendGrid! Status: {response.status_code}")
@@ -73,132 +70,125 @@ def send_email(subject, body):
         except Exception as e:
             print(f"SendGrid API failed: {e}")
 
-    # METHOD 3: Gmail SMTP (Works Locally, BLOCKED on Render)
-    sender_email = os.getenv("SMTP_EMAIL")
-    sender_password = os.getenv("SMTP_PASSWORD")
-    
-    if not all([sender_email, sender_password, recipient_email]):
-        print(f"Email not configured (No Resend/SendGrid Key, No SMTP details).")
+    # METHOD 3: Gmail SMTP (Local fallback)
+    if not all([smtp_email, smtp_password, recipient_email]):
+        print("Email not configured (No Resend/SendGrid Key, No SMTP details).")
         return False
-    
+
     try:
         msg = MIMEMultipart()
-        msg['From'] = sender_email
-        msg['To'] = recipient_email
-        msg['Subject'] = subject
-        msg.attach(MIMEText(body, 'plain'))
-        
-        # Use simple SMTP_SSL on 465
-        with smtplib.SMTP_SSL('smtp.gmail.com', 465, timeout=10) as server:
-            server.login(sender_email, sender_password)
+        msg["From"] = smtp_email
+        msg["To"] = recipient_email
+        msg["Subject"] = subject
+        msg.attach(MIMEText(body, "plain"))
+
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=10) as server:
+            server.login(smtp_email, smtp_password)
             server.send_message(msg)
-        
+
         print(f"Email sent via SMTP successfully: {subject}")
         return True
     except Exception as e:
         print(f"Failed to send email via SMTP: {e}")
         return False
 
-def record_user(email, name="-", notes="-"): 
-    # Send email with client details
+
+def record_user(email: str, name: str = "-", notes: str = "-") -> dict[str, str]:
+    """Records user lead details and sends notification email."""
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     subject = f"🎯 New Portfolio Lead: {name}"
-    body = f"""New contact from portfolio AI chatbot:
-
-Name: {name}
-Email: {email}
-Notes: {notes}
-
-Time: {__import__('datetime').datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-"""
+    body = f"New contact from portfolio AI chatbot:\n\nName: {name}\nEmail: {email}\nNotes: {notes}\n\nTime: {timestamp}\n"
     send_email(subject, body)
-    
     return {"status": "ok"}
 
-def record_issue(question): 
-    # Send email about unknown question
+
+def record_issue(question: str) -> dict[str, str]:
+    """Records unanswered questions and notifies via email."""
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     subject = "❓ Unknown Question from Portfolio AI"
-    body = f"""AI chatbot received a question it couldn't answer:
-
-Question: {question}
-
-Time: {__import__('datetime').datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-"""
+    body = f"AI chatbot received a question it couldn't answer:\n\nQuestion: {question}\n\nTime: {timestamp}\n"
     send_email(subject, body)
-    
     return {"status": "ok"}
+
 
 TOOLS = {
-    "record_user_details": record_user, 
-    "record_unknown_question": record_issue
+    "record_user_details": record_user,
+    "record_unknown_question": record_issue,
 }
 
 TOOL_DEFS = [
     {
-        "type": "function", 
+        "type": "function",
         "function": {
-            "name": "record_user_details", 
-            "description": "Save lead", 
+            "name": "record_user_details",
+            "description": "Save lead",
             "parameters": {
-                "type": "object", 
+                "type": "object",
                 "properties": {
-                    "email": {"type": "string"}, 
-                    "name": {"type": "string"}, 
-                    "notes": {"type": "string"}
-                }, 
-                "required": ["email"]
-            }
-        }
+                    "email": {"type": "string"},
+                    "name": {"type": "string"},
+                    "notes": {"type": "string"},
+                },
+                "required": ["email"],
+            },
+        },
     },
     {
-        "type": "function", 
+        "type": "function",
         "function": {
-            "name": "record_unknown_question", 
-            "description": "Save unknown Q", 
+            "name": "record_unknown_question",
+            "description": "Save unknown Q",
             "parameters": {
-                "type": "object", 
+                "type": "object",
                 "properties": {
-                    "question": {"type": "string"}
-                }, 
-                "required": ["question"]
-            }
-        }
-    }
+                    "question": {"type": "string"},
+                },
+                "required": ["question"],
+            },
+        },
+    },
 ]
 
+
 # --- 2. The Agent ---
+
 class Me:
     def __init__(self):
         self.api = OpenAI(
-            api_key=os.getenv('OPENROUTER_API_KEY'), 
+            api_key=os.getenv("OPENROUTER_API_KEY"),
             base_url="https://openrouter.ai/api/v1",
             default_headers={
                 "HTTP-Referer": "https://samirautanen.fi",
-                "X-Title": "Sami Portfolio AI"
-            }
+                "X-Title": "Sami Portfolio AI",
+            },
         )
-        
-        # Load Bio from text files
-        self.bio = ""
-        try:
-            if (BASE_DIR / "summary.txt").exists():
-                self.bio += (BASE_DIR / "summary.txt").read_text(encoding="utf-8") + "\n"
-            
-            if (BASE_DIR / "linkedin.txt").exists():
-                self.bio += (BASE_DIR / "linkedin.txt").read_text(encoding="utf-8")
-            
-            if (BASE_DIR / "portfolio.txt").exists():
-                self.bio += "\n\n" + (BASE_DIR / "portfolio.txt").read_text(encoding="utf-8")
+        self.bio = self._load_bio()
+        self.system_prompt = self._build_system_prompt()
 
-            if not self.bio:
-                self.bio = "Context missing."
+    def _load_bio(self) -> str:
+        """Loads biographical context files from the me/ directory."""
+        bio_parts = []
+        try:
+            summary_path = BASE_DIR / "summary.txt"
+            if summary_path.exists():
+                bio_parts.append(summary_path.read_text(encoding="utf-8"))
+
+            linkedin_path = BASE_DIR / "linkedin.txt"
+            if linkedin_path.exists():
+                bio_parts.append(linkedin_path.read_text(encoding="utf-8"))
+
+            portfolio_path = BASE_DIR / "portfolio.txt"
+            if portfolio_path.exists():
+                bio_parts.append(portfolio_path.read_text(encoding="utf-8"))
+
+            return "\n\n".join(bio_parts) if bio_parts else "Context missing."
         except Exception as e:
             print(f"Error loading context: {e}")
-            self.bio = "Context missing."
+            return "Context missing."
 
-    def chat(self, msg, history):
-        # history comes in as [{"role": "user", "content": "..."}] from api.py
-        
-        system_prompt = f"""You ARE Sami Rautanen. This is not role-play—you are me.
+    def _build_system_prompt(self) -> str:
+        """Constructs the system prompt with identity rules and loaded bio."""
+        return f"""You ARE Sami Rautanen. This is not role-play—you are me.
 
 IDENTITY RULES (CRITICAL):
 1. ALWAYS use first-person: "I", "my", "me"
@@ -301,46 +291,32 @@ IMPORTANT: When user gives email → call record_user_details tool BEFORE respon
 
 Remember: You are not an assistant describing Sami. You ARE Sami."""
 
-        msgs = [{"role": "system", "content": system_prompt}] + history + [{"role": "user", "content": msg}]
-        
-        # Max iterations for tool calls to prevent infinite loops
+    def chat(self, msg: str, history: list[dict[str, Any]]) -> str:
+        """Processes user chat messages and returns the assistant response."""
+        msgs = [{"role": "system", "content": self.system_prompt}] + history + [{"role": "user", "content": msg}]
         max_iter = 5
         iter_count = 0
-        
-        # Model Selection: Use OpenRouter (Paid model)
-        models_to_try = ["openai/gpt-4o-mini"]
-        
+        model_name = "openai/gpt-4o-mini"
+
         while iter_count < max_iter:
             iter_count += 1
-            
-            last_error = None
-            res = None
-            
-            for model_name in models_to_try:
-                try:
-                    print(f"Attempting chat with model: {model_name} (Iter {iter_count})")
-                    res = self.api.chat.completions.create(
-                        model=model_name, 
-                        messages=msgs, 
-                        tools=TOOL_DEFS,
-                        timeout=30.0
-                    )
-                    if res:
-                        break # Success!
-                except Exception as e:
-                    last_error = str(e)
-                    print(f"Model {model_name} failed: {e}")
-                    continue # Try next model
-            
-            if not res:
-                print(f"CRITICAL: All models failed. Last error: {last_error}")
+            try:
+                print(f"Attempting chat with model: {model_name} (Iter {iter_count})")
+                res = self.api.chat.completions.create(
+                    model=model_name,
+                    messages=msgs,
+                    tools=TOOL_DEFS,
+                    timeout=30.0,
+                )
+            except Exception as e:
+                print(f"CRITICAL: Model {model_name} failed: {e}")
                 return "I'm having trouble connecting to my brain right now. Please try again in a moment."
 
             msg_obj = res.choices[0].message
-            
-            if not msg_obj.tool_calls: 
+
+            if not msg_obj.tool_calls:
                 return msg_obj.content
-            
+
             msgs.append(msg_obj)
             for tc in msg_obj.tool_calls:
                 print(f"Tool call ({iter_count}/{max_iter}): {tc.function.name}")
@@ -353,7 +329,8 @@ Remember: You are not an assistant describing Sami. You ARE Sami."""
                         res_content = json.dumps({"error": str(e)})
                 else:
                     res_content = json.dumps({"error": "Tool not found"})
-                    
+
                 msgs.append({"role": "tool", "content": res_content, "tool_call_id": tc.id})
-        
+
         return "I'm doing a lot of thinking! Let's pause here. What was your main question?"
+

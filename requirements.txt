@@ -4,6 +4,5 @@ pydantic
 python-dotenv
 openai
 requests
-pypdf
 slowapi
-google-generativeai
+
