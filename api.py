@@ -1,4 +1,3 @@
-# api.py
 import os
 from fastapi import FastAPI, HTTPException, Request
 from pydantic import BaseModel, Field
@@ -14,12 +13,12 @@ app = FastAPI(title="Sami Rautanen AI Clone API", version="1.0.0")
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
-# CORS configuration
+# CORS configuration - strict origin regex restricted to verified deployment domains
 app.add_middleware(
     CORSMiddleware,
-    allow_origin_regex=r"https://.*\.vercel\.app|https://samirautanen\.fi|https://www\.samirautanen\.fi|http://localhost:3000",
+    allow_origin_regex=r"https://(portfolio[a-zA-Z0-9-]*|sami-rautanen[a-zA-Z0-9-]*)\.vercel\.app|https://(www\.)?samirautanen\.fi|http://localhost:3000",
     allow_credentials=True,
-    allow_methods=["*"],
+    allow_methods=["GET", "POST", "HEAD", "OPTIONS"],
     allow_headers=["*"],
 )
 
@@ -33,23 +32,21 @@ except Exception as e:
 
 
 class ChatMessage(BaseModel):
-    role: str
-    content: str
+    role: str = Field(..., min_length=1, max_length=50)
+    content: str = Field(..., max_length=2000)
 
 
 class ChatRequest(BaseModel):
     message: str = Field(..., min_length=1, max_length=2000)
-    history: list[ChatMessage] = Field(default_factory=list)
+    history: list[ChatMessage] = Field(default_factory=list, max_length=20)
 
 
-@app.get("/")
-@app.head("/")
+@app.api_route("/", methods=["GET", "HEAD"])
 def read_root():
     return {"status": "ok", "agent": "Sami Rautanen AI Clone"}
 
 
-@app.get("/health")
-@app.head("/health")
+@app.api_route("/health", methods=["GET", "HEAD"])
 def health_check():
     """Health check endpoint for monitoring services"""
     return {"status": "healthy"}
@@ -75,4 +72,3 @@ def chat_endpoint(req: ChatRequest, request: Request):
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", 8000)))
-

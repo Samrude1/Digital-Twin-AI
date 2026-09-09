@@ -21,3 +21,19 @@ env/
 .DS_Store
 Thumbs.db
 
+# Docs, Reports & Personal Notes
+docs/
+documents/
+*.pdf
+profiili*.txt
+REPORT*.md
+*report*.md
+interview-prep/
+
+# Local data & lead captures (visitor PII protection)
+data/
+*.jsonl
+*.sqlite
+*.sqlite3
+*.db
+

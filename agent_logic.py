@@ -1,116 +1,19 @@
 import os
 import json
-import smtplib
-from datetime import datetime
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
 from pathlib import Path
 from typing import Any
 
 from dotenv import load_dotenv
 from openai import OpenAI
-import requests
+
+from lead_manager import record_user, record_issue
 
 # Load environment variables
 load_dotenv(override=True)
 
 BASE_DIR = Path(__file__).parent / "me"
 
-
-# --- 1. Email Notifications & Tools ---
-
-def send_email(subject: str, body: str) -> bool:
-    """Send email via Resend/SendGrid API (preferred for Render) or SMTP (local fallback)."""
-    recipient_email = os.getenv("RECIPIENT_EMAIL", "").strip()
-    smtp_email = os.getenv("SMTP_EMAIL", "").strip()
-    smtp_password = os.getenv("SMTP_PASSWORD", "").strip()
-    from_email = os.getenv("SENDGRID_VERIFIED_SENDER", "").strip() or smtp_email or "no-reply@portfolio.com"
-
-    # METHOD 1: Resend API
-    resend_key = os.getenv("RESEND_API_KEY", "").strip()
-    if resend_key:
-        try:
-            response = requests.post(
-                "https://api.resend.com/emails",
-                headers={"Authorization": f"Bearer {resend_key}", "Content-Type": "application/json"},
-                json={
-                    "from": "Portfolio AI <onboarding@resend.dev>",
-                    "to": [recipient_email],
-                    "subject": subject,
-                    "text": body,
-                },
-                timeout=10,
-            )
-            response.raise_for_status()
-            print(f"Email sent via Resend! ID: {response.json().get('id')}")
-            return True
-        except Exception as e:
-            print(f"Resend API failed: {e}")
-
-    # METHOD 2: SendGrid API
-    sendgrid_key = os.getenv("SENDGRID_API_KEY", "").strip()
-    if sendgrid_key:
-        try:
-            response = requests.post(
-                "https://api.sendgrid.com/v3/mail/send",
-                headers={"Authorization": f"Bearer {sendgrid_key}", "Content-Type": "application/json"},
-                json={
-                    "personalizations": [{"to": [{"email": recipient_email}]}],
-                    "from": {"email": from_email},
-                    "subject": subject,
-                    "content": [{"type": "text/plain", "value": body}],
-                },
-                timeout=10,
-            )
-            if response.status_code in [200, 201, 202]:
-                print(f"Email sent via SendGrid! Status: {response.status_code}")
-                return True
-            else:
-                print(f"SendGrid failed: {response.status_code} - {response.text}")
-        except Exception as e:
-            print(f"SendGrid API failed: {e}")
-
-    # METHOD 3: Gmail SMTP (Local fallback)
-    if not all([smtp_email, smtp_password, recipient_email]):
-        print("Email not configured (No Resend/SendGrid Key, No SMTP details).")
-        return False
-
-    try:
-        msg = MIMEMultipart()
-        msg["From"] = smtp_email
-        msg["To"] = recipient_email
-        msg["Subject"] = subject
-        msg.attach(MIMEText(body, "plain"))
-
-        with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=10) as server:
-            server.login(smtp_email, smtp_password)
-            server.send_message(msg)
-
-        print(f"Email sent via SMTP successfully: {subject}")
-        return True
-    except Exception as e:
-        print(f"Failed to send email via SMTP: {e}")
-        return False
-
-
-def record_user(email: str, name: str = "-", notes: str = "-") -> dict[str, str]:
-    """Records user lead details and sends notification email."""
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    subject = f"🎯 New Portfolio Lead: {name}"
-    body = f"New contact from portfolio AI chatbot:\n\nName: {name}\nEmail: {email}\nNotes: {notes}\n\nTime: {timestamp}\n"
-    send_email(subject, body)
-    return {"status": "ok"}
-
-
-def record_issue(question: str) -> dict[str, str]:
-    """Records unanswered questions and notifies via email."""
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    subject = "❓ Unknown Question from Portfolio AI"
-    body = f"AI chatbot received a question it couldn't answer:\n\nQuestion: {question}\n\nTime: {timestamp}\n"
-    send_email(subject, body)
-    return {"status": "ok"}
-
-
+# Tool registry
 TOOLS = {
     "record_user_details": record_user,
     "record_unknown_question": record_issue,
@@ -150,9 +53,9 @@ TOOL_DEFS = [
 ]
 
 
-# --- 2. The Agent ---
-
 class Me:
+    """Sami Rautanen AI Digital Twin Agent."""
+
     def __init__(self):
         self.api = OpenAI(
             api_key=os.getenv("OPENROUTER_API_KEY"),
@@ -169,17 +72,10 @@ class Me:
         """Loads biographical context files from the me/ directory."""
         bio_parts = []
         try:
-            summary_path = BASE_DIR / "summary.txt"
-            if summary_path.exists():
-                bio_parts.append(summary_path.read_text(encoding="utf-8"))
-
-            linkedin_path = BASE_DIR / "linkedin.txt"
-            if linkedin_path.exists():
-                bio_parts.append(linkedin_path.read_text(encoding="utf-8"))
-
-            portfolio_path = BASE_DIR / "portfolio.txt"
-            if portfolio_path.exists():
-                bio_parts.append(portfolio_path.read_text(encoding="utf-8"))
+            for filename in ["summary.txt", "linkedin.txt", "portfolio.txt"]:
+                filepath = BASE_DIR / filename
+                if filepath.exists():
+                    bio_parts.append(filepath.read_text(encoding="utf-8"))
 
             return "\n\n".join(bio_parts) if bio_parts else "Context missing."
         except Exception as e:
@@ -315,7 +211,7 @@ Remember: You are not an assistant describing Sami. You ARE Sami."""
             msg_obj = res.choices[0].message
 
             if not msg_obj.tool_calls:
-                return msg_obj.content
+                return msg_obj.content or ""
 
             msgs.append(msg_obj)
             for tc in msg_obj.tool_calls:
@@ -333,4 +229,3 @@ Remember: You are not an assistant describing Sami. You ARE Sami."""
                 msgs.append({"role": "tool", "content": res_content, "tool_call_id": tc.id})
 
         return "I'm doing a lot of thinking! Let's pause here. What was your main question?"
-

@@ -35,17 +35,19 @@ This is the **backend intelligence engine** for my portfolio's AI assistant—a 
 - **Language detection** - Responds in English or Finnish based on user input
 - **Conversation state** - Maintains context across multi-turn dialogues
 
-### 🛠️ Tool Calling System
+### 🛠️ Tool Calling & Persistence System
 ```python
 Tools:
-├── record_user_details()    # Captures email, name, notes when user provides contact
-├── record_unknown_question() # Logs questions agent can't answer
-└── send_email()             # Multi-provider email orchestration
+├── record_user_details()    # Captures email, name, notes -> data/leads.jsonl & sends notification
+├── record_unknown_question() # Logs unknown questions -> data/unknown_questions.jsonl & sends notification
+└── send_email()             # Multi-provider email orchestration (Resend -> SendGrid -> SMTP)
 ```
 
 ### 🔐 Security & Production Features
 - **Rate Limiting**: 5 requests/minute, 50 requests/day per IP (SlowAPI)
-- **CORS**: Configured for Vercel deployments + custom domain
+- **CORS**: Strictly whitelisted for verified production and local origins
+- **Request Bounds**: Hardened message validation (`history` max 20 messages, 2000 chars per message)
+- **PII Quarantine**: All captured leads saved locally in `.gitignore`-quarantined `data/*.jsonl`
 - **Health Checks**: `/health` endpoint for monitoring services
 - **Timeout Protection**: 30-second LLM timeout prevents hanging
 - **Environment-based Config**: All secrets in env vars, not code
@@ -195,12 +197,13 @@ The agent can autonomously decide to use tools based on conversation context:
 
 **`record_user_details(email, name, notes)`**
 - Triggered when user provides contact information
+- Safely appends lead to local `data/leads.jsonl` (never lost even on network failure)
 - Sends email notification with lead details
 - Captures context about their inquiry
 
 **`record_unknown_question(question)`**
 - Triggered when agent doesn't know the answer
-- Logs question for knowledge base improvement
+- Logs question to `data/unknown_questions.jsonl` for knowledge base improvement
 - Sends notification for manual follow-up
 
 ### Guardrails
