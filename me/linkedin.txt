@@ -29,10 +29,10 @@ I've been pre-selected for the **Saranen Future Skills Academy** recruitment tra
 *   I built an automated software team using **CrewAI** and **Claude 3.7** to streamline Python development.
 *   *Tech:* Python, LangGraph, CrewAI, Claude 3.7, Playwright.
 
-**Enterprise AI Solutions (CareAssist & ContractSense)**
-*   **[In Development]** CareAssist AI: An event-driven AWS solution for healthcare data structuring.
-*   **[In Development]** ContractSense AI: A legal-tech platform for automated contract risk assessment.
-*   *Tech:* AWS (SQS/Lambda), PII-Anonymization, FastAPI, Claude 3.7.
+**Autonomous Developer Platforms & Tools (Agentic Architect & Dev Template)**
+*   **[Open Source]** Agentic Architect: An AI-powered fullstack architecture visualizer and multi-tier code generation engine (Next.js 16, React Flow, Prisma).
+*   **[Open Source]** Agentic Fullstack Template: Studio-grade cognitive development environment with 17 autonomous skills and automated testing gates.
+*   *Tech:* Next.js 16, React 19, React Flow, TypeScript, Python, Vitest, CI/CD, OWASP.
 
 **Digital Twin (Production AWS Deployment)**
 *   I deployed my own AI representation as a production-grade serverless application.

@@ -22,15 +22,15 @@ These are the projects I am currently showcasing.
 - **Tech**: AWS Lambda, Amazon Nova, Terraform, FastAPI, CloudFront.
 - **Link**: https://d15k7n9dhqyy0d.cloudfront.net/
 
-### 4. CareAssist AI (IN DEVELOPMENT)
-- **What**: HealthTech solution for autonomous patient note structuring and triage.
-- **Tech**: AWS Event-driven architecture (SQS, Lambda), PII-Anonymization, Aurora v2.
-- **Focus**: Sote-sector efficiency and data privacy.
+### 4. Agentic Fullstack Development System (Open Source)
+- **What**: Studio-grade cognitive development environment and governance template for solo developers working with autonomous AI agents.
+- **Tech**: 17 autonomous skills, Next.js / FastAPI / Vite support, Vitest E2E, OWASP Top 10 security scanning, minimal context handoff.
+- **Link**: https://github.com/Samrude1/agentic-fullstack-template
 
-### 5. ContractSense AI (IN DEVELOPMENT)
-- **What**: Legal-grade contract risk analysis platform with Chain-of-Thought visualization.
-- **Tech**: FastAPI, Claude 3.7, PII-masking, PDF-Parsing.
-- **Concept**: "No-login demo" for immediate business value.
+### 5. Agentic Architect (Open Source)
+- **What**: AI-powered fullstack architecture visualizer and code generation engine. Transforms requirements into interactive 4-tier React Flow system diagrams, Prisma schemas, Next.js API handlers, and React 19 UI components.
+- **Tech**: Next.js 16 (App Router), React 19, React Flow, Vercel AI SDK + OpenRouter, SQLite / Prisma, TypeScript, Vitest (34 tests).
+- **Link**: https://github.com/Samrude1/Agentic-Architect
 
 ### 6. AgentSquad Platform (Live)
 - **What**: Multi-agent business intelligence platform (Deep Research & Sales teams).

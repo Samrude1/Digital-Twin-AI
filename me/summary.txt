@@ -52,8 +52,8 @@ With deep expertise in multi-agent frameworks (LangGraph, CrewAI, OpenAI Agents)
 
 **Enterprise & Infrastructure:**
 *   **Digital Twin (Prod)** — My own production-grade AI representation on AWS (FastAPI + Amazon Nova).
-*   **CareAssist AI (In Development)** — HealthTech agent for autonomous patient note structuring and triage. AWS Event-driven architecture.
-*   **ContractSense AI (In Development)** — Legal-grade contract risk analysis with PII-masking and CoT-visualization.
+*   **Agentic Fullstack Template (Open Source)** — Studio-grade cognitive development environment and governance template for solo developers working with autonomous AI agents.
+*   **Agentic Architect (Open Source)** — AI-powered fullstack architecture visualizer and automatic Prisma/API/UI code generation engine.
 
 **Games:**
 *   **Indie Game Portfolio** — 8 published games on Itch.io showcasing complex mechanics and AI.
@@ -63,9 +63,10 @@ With deep expertise in multi-agent frameworks (LangGraph, CrewAI, OpenAI Agents)
 ### **My Evolution**
 
 ```
-1999-2024: Industrial Precision → Specialist at Murata Finland (MEMS Tech)
-2023-2024: Systems Development → C# & Full-Stack Applications
-2024-2026: AI Engineering → Orchestrating Agentic Systems & Cloud AI
+1999-2024: Operator at Murata Finland (MEMS Tech & Industrial Precision)
+2016-Present: 3D Technical Design & Modeling (Hyria 2016-2018, spatial reasoning)
+2018-Present: Systems & Software Development (C#, Game Dev, Full-Stack Applications)
+2024-Present: AI Engineering (Autonomous Multi-Agent Systems & Cloud Deployments)
 ```
 
 I've evolved from writing code line-by-line to designing systems where AI agents handle the implementation while I focus on the high-level architecture and business value.
