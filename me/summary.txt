@@ -56,7 +56,7 @@ With deep expertise in multi-agent frameworks (LangGraph, CrewAI, OpenAI Agents)
 *   **Agentic Architect (Open Source)** — AI-powered fullstack architecture visualizer and automatic Prisma/API/UI code generation engine.
 
 **Games:**
-*   **Indie Game Portfolio** — 8 published games on Itch.io showcasing complex mechanics and AI.
+*   **Indie Game Portfolio** — 10 published games on Itch.io showcasing complex mechanics and AI.
 
 ---
 

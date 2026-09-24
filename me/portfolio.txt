@@ -38,7 +38,7 @@ These are the projects I am currently showcasing.
 - **Link**: https://agent-squad-sigma.vercel.app/?access=portfolio_access
 
 ### 7. Indie Game Portfolio (Live)
-- **What**: 8 published games showcasing mechanics, C# systems, and AI.
+- **What**: 10 published games showcasing mechanics, C# systems, and AI.
 - **Link**: https://sr3design.itch.io/
 
 ## CAREER STATUS: SARANEN FUTURE SKILLS ACADEMY
